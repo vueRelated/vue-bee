@@ -55,7 +55,7 @@ const config = {
   compiler_babel : {
     cacheDirectory : true,
     plugins        : ['transform-runtime'],
-    presets        : ['es2015', 'react', 'stage-0']
+    presets        : ['es2015', 'vue', 'stage-2']
   },
   compiler_devtool         : 'source-map',
   compiler_hash_type       : new Date().Format("yyyy.MM.dd_hh.mm.ss.S"),
@@ -68,10 +68,9 @@ const config = {
     colors : true
   },
   compiler_vendors : [
-    'react',
-    'react-redux',
-    'react-router',
-    'redux'
+    'vue',
+    'vue-router',
+    'vuex'
   ],
 
   // ----------------------------------
