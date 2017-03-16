@@ -1,21 +1,16 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import routes from './router/router'
-import store from './store/'
+import Vue from "vue";
+import App from "./App";
+import router from "./router";
+import store from "./store";
+import './lib/rem'
+import "./style/main.css";
 
-// import "reset-css/reset.css";
-// import "sweetalert2/dist/sweetalert2.css";
-
-
-Vue.use(VueRouter)
-const router = new VueRouter({
-    routes,
-    mode: routerMode,
-    strict: process.env.NODE_ENV !== 'production'
-})
-
+Vue.config.productionTip = false;
 
 new Vue({
+    el: "#app",
     router,
     store,
-}).$mount('#app')
+    template: "<App/>",
+    components: {App}
+});

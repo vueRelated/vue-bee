@@ -1,29 +1,22 @@
-export const RECORD_ADDRESS = 'RECORD_ADDRESS'
-export const ADD_CART = 'ADD_CART'
-export const REDUCE_CART = 'REDUCE_CART'
-export const INIT_BUYCART = 'INIT_BUYCART'
-export const CLEAR_CART = 'CLEAR_CART'
-export const RECORD_SHOPDETAIL = 'RECORD_SHOPDETAIL'
-export const RECORD_USERINFO = 'RECORD_USERINFO'
-export const GET_USERINFO = 'GET_USERINFO'
-export const CONFIRM_REMARK = 'CONFIRM_REMARK'
-export const CONFIRM_INVOICE = 'CONFIRM_INVOICE'
-export const CHOOSE_SEARCH_ADDRESS = 'CHOOSE_SEARCH_ADDRESS'
-export const SAVE_GEOHASH = 'SAVE_GEOHASH'
-export const CONFIRM_ADDRESS = 'CONFIRM_ADDRESS'
-export const CHOOSE_ADDRESS = 'CHOOSE_ADDRESS'
-export const NEED_VALIDATION = 'NEED_VALIDATION'
-export const SAVE_CART_ID_SIG = 'SAVE_CART_ID_SIG'
-export const SAVE_ORDER_PARAM = 'SAVE_ORDER_PARAM'
-export const CHANGE_ORDER_PARAM = 'CHANGE_ORDER_PARAM'
-export const ORDER_SUCCESS = 'ORDER_SUCCESS'
-export const SAVE_SHOPID = 'SAVE_SHOPID'
-export const SAVE_ORDER = 'SAVE_ORDER'
-export const OUT_LOGIN = 'OUT_LOGIN'
-export const RETSET_NAME = 'RETSET_NAME'
-export const SAVE_AVANDER = 'SAVE_AVANDER'
-export const SAVE_ADDDETAIL = 'SAVE_ADDDETAIL'
-export const SAVE_ADDRESS = 'SAVE_ADDRESS'
-export const SAVE_QUESTION = 'SAVE_QUESTION'
-export const ADD_ADDRESS = 'ADD_ADDRESS'
-export const BUY_CART = 'BUY_CART'
+/**
+ * mutations配置
+ */
+
+export const HOME = "HOME";                                   //  登录
+export const LOGIN = "LOGIN";                                   //  登录
+export const UPDATE = "UPDATE";                                 //  更新文章
+export const UPLOAD = "UPLOAD";                                 //  文件上传
+export const PUBLISH = "PUBLISH";                               //  发布文章
+export const ADD_CONTENT = "ADD_CONTENT";                       //  添加课程内容
+export const INSERT_CONTENT = "INSERT_CONTENT";                 //  插入课程内容
+export const SET_CONTENT = "SET_CONTENT";                       //  设置课程内容
+export const ADD_CONTENT_MEDIA = "ADD_CONTENT_MEDIA";           //  添加课程内容(多媒体)
+export const INSERT_CONTENT_MEDIA = "INSERT_CONTENT_MEDIA";     //  插入课程内容(多媒体)
+export const RESET_UPLOAD_RES = "RESET_UPLOAD_RES";             //  重置上传状态
+export const COUSE = "COUSE";                                   //  获取课程详情
+export const QUERY_DETAIL = "QUERY_DETAIL";                     //  文章详情
+export const TEACHER_INFO = "TEACHER_INFO";                     //  获取教师信息
+export const QUERY_LIST = "QUERY_LIST";                         //  查询文章列表
+export const QUERY_LIST_VIEW = "QUERY_LIST_VIEW";               //  查询全部文章列表
+export const MODIFY_INFO = "MODIFY_INFO";                       //  个人信息修改
+export const RESET = "RESET";                                   //  重置所有
