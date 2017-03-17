@@ -1,4 +1,4 @@
-require('./check-versions')()
+require('./../config/check-versions')()
 
 process.env.NODE_ENV = 'production'
 
@@ -8,7 +8,7 @@ var path = require('path')
 var chalk = require('chalk')
 var webpack = require('webpack')
 var config = require('../config')
-var webpackConfig = require('./webpack.prod.conf')
+var webpackConfig = require('./../config/webpack.prod.conf.js')
 
 var spinner = ora('building for production...')
 spinner.start()
