@@ -1,7 +1,6 @@
 var path = require('path')
 var utils = require('./utils')
 var webpack = require('webpack')
-var config = require('./index')
 const projectConfig = require('./project.config.js')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf.js')
@@ -9,9 +8,8 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-
-// var env = config.build.env
-
+const debug = require('debug')('app:config:webpack.prod.conf');
+debug(__dirname)
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -49,7 +47,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       您可以通过编辑自定义输出/ index . html
       参见https://github.com/ampedandwired/html-webpack-plugin*/
     new HtmlWebpackPlugin({
-      filename: config.build.index,
+      filename: projectConfig.paths.dist('index.html'),
       template: 'index.html',
       inject: true,
       minify: {
@@ -86,15 +84,15 @@ var webpackConfig = merge(baseWebpackConfig, {
     // 复制自定义静态资产
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../static'),
-        to: config.build.assetsSubDirectory,
+        from: projectConfig.paths.public(),
+        to: projectConfig.paths.dist(`${projectConfig.compiler_static_path}/assets`),
         ignore: ['.*']
       }
     ])
   ]
 })
 
-if (config.build.productionGzip) {
+if (projectConfig.productionGzip) {
   var CompressionWebpackPlugin = require('compression-webpack-plugin')
 
   webpackConfig.plugins.push(
@@ -103,7 +101,7 @@ if (config.build.productionGzip) {
       algorithm: 'gzip',
       test: new RegExp(
         '\\.(' +
-        config.build.productionGzipExtensions.join('|') +
+        projectConfig.productionGzipExtensions.join('|') +
         ')$'
       ),
       threshold: 10240,
@@ -112,7 +110,8 @@ if (config.build.productionGzip) {
   )
 }
 
-if (config.build.bundleAnalyzerReport) {
+if (projectConfig.bundleAnalyzerReport) {
+  //测试包 的大小
   var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }

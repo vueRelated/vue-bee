@@ -1,28 +1,27 @@
 //检查 node 版本
 // require('../config/check-versions')()
+const projectConfig = require('../config/project.config');
+const opn = require('opn');
+const path = require('path');
+const express = require('express');
+const webpack = require('webpack');
+const proxyMiddleware = require('http-proxy-middleware');
+const webpackConfig = require('../config/webpack.dev.conf.js');
+const debug = require('debug')('app:build:dev-sever');
 
-const projectConfig = require('../config/project.config')
-//自动打开浏览器
-const opn = require('opn')
-const path = require('path')
-const express = require('express')
-const webpack = require('webpack')
-const proxyMiddleware = require('http-proxy-middleware')
-const webpackConfig = require('../config/webpack.dev.conf.js')
-const debug = require('debug')('app:build:dev.sever');
-
-var app = express()
-var compiler = webpack(webpackConfig)
+var app = express();
+var compiler = webpack(webpackConfig);
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true
-})
+});
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {}
-})
+});
 // force page reload when html-webpack-plugin template changes
+// 加载页面时html-webpack-plugin模板的变化
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
     hotMiddleware.publish({ action: 'reload' })
@@ -57,8 +56,8 @@ app.use(devMiddleware)
 app.use(hotMiddleware)
 
 // 代理服务器上的静态资源 映射
-var staticPath = path.posix.join(projectConfig.compiler_public_path, projectConfig.compiler_assets_path)
-app.use(staticPath, express.static(projectConfig.paths.static()))
+var staticPath = path.posix.join(projectConfig.compiler_public_path, projectConfig.compiler_static_path)
+app.use(staticPath, express.static(projectConfig.paths.public()))
 
 var uri = 'http://localhost:' + projectConfig.server_port
 

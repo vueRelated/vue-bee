@@ -11,10 +11,10 @@ debug(`检查 projectConfig.env.NODE_ENV:${projectConfig.globals.NODE_ENV}`)
  */
 exports.assetsPath = function (_path) {
  /* var assetsSubDirectory = projectConfig.globals.NODE_ENV === 'production'
-    ? projectConfig.compiler_assets_path
-    : projectConfig.compiler_assets_path*/
+    ? projectConfig.compiler_static_path
+    : projectConfig.compiler_static_path*/
 
-  return path.posix.join(projectConfig.compiler_assets_path, _path)
+  return path.posix.join(projectConfig.compiler_static_path, _path)
 }
 /**
  *

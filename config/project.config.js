@@ -1,7 +1,7 @@
 /* 项目配置 */
 const path = require('path')
-const debug = require('debug')('app:config:project')
 const ip = require('ip')
+const debug = require('debug')('app:config:project')
 
 debug('开始创建默认配置.')
 
@@ -22,7 +22,6 @@ Date.prototype.Format = function (fmt) { //author: meizz
 }
 
 
-
 // ========================================================
 // Default Configuration
 // ========================================================
@@ -30,7 +29,7 @@ debug(`查看 env:${process.env.NODE_ENV}`)
 const config = {
     //是否自动打开浏览器
     autoOpenBrowser:false,
-
+    bundleAnalyzerReport:false,
 
   env : process.env.NODE_ENV || 'development',
   timestamp:new Date().getTime(),
@@ -41,7 +40,6 @@ const config = {
   dir_src : 'src',
   dir_dist   : 'dist',
   dir_public : 'public',
-  dir_static : 'static',
   dir_server : 'server',
   dir_test   : 'tests',
 
@@ -70,7 +68,7 @@ const config = {
   compiler_fail_on_warning : false,
   compiler_quiet           : false,
   compiler_public_path     : '/',
-  compiler_assets_path     : 'static',
+  compiler_static_path     : 'static',
   compiler_stats           : {
     chunks : false,
     chunkModules : false,
@@ -87,19 +85,16 @@ const config = {
 // 环境
 // ------------------------------------
 
-
 config.globals = {
   'process.env'  : {
     'NODE_ENV' : JSON.stringify(config.env)
   },
   'NODE_ENV'     : config.env,
-  '__DEV__'      : config.env === 'development',
-  '__PROD__'     : config.env === 'production',
-  '__TEST__'     : config.env === 'test',
   '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),
     //当前ip地址端口
-    '__SERVER_HOST__': JSON.stringify(`http://localhost:${config.server_port}`)
-}
+   '__SERVER_HOST__': JSON.stringify(`http://localhost:${config.server_port}`)
+};
+
 
 // ------------------------------------
 // 验证 依赖
@@ -127,7 +122,6 @@ config.paths = {
   base   : base,
   src : base.bind(null, config.dir_src),
   public : base.bind(null, config.dir_public),
-  static : base.bind(null, config.dir_static),
   dist   : base.bind(null, config.dir_dist)
 };
 
