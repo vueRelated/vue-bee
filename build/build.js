@@ -9,6 +9,9 @@ var webpackConfig = require('../config/webpack.prod.conf.js')
 
 const debug = require('debug')('app:build:build');
 debug('开始构建')
+console.log(webpackConfig)
+console.log('--------------------------')
+
 
 rm(projectConfig.paths.dist(projectConfig.compiler_static_path), err => {
   if (err) throw err
