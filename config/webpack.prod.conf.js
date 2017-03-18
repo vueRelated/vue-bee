@@ -25,7 +25,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   },*/
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
-    //   new webpack.DefinePlugin(projectConfig.globals),
+      new webpack.DefinePlugin(projectConfig.globals),
       //https://webpack.js.org/guides/migrating/#uglifyjsplugin-sourcemap
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -48,7 +48,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       参见https://github.com/ampedandwired/html-webpack-plugin*/
     new HtmlWebpackPlugin({
       filename: projectConfig.paths.dist('index.html'),
-      template: 'index.html',
+        template: projectConfig.paths.src('index.html'),
       inject: true,
       minify: {
         removeComments: true,
@@ -65,7 +65,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       name: 'vendor',
       minChunks: function (module, count) {
         // any required modules inside node_modules are extracted to vendor
-        // 所需的模块内部node_modules提取到供应商
+        // node_modules内部所需的模块提取到vendor
         return (
           module.resource &&
           /\.js$/.test(module.resource) &&

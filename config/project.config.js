@@ -20,79 +20,93 @@ Date.prototype.Format = function (fmt) { //author: meizz
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
-
-
 // ========================================================
 // Default Configuration
 // ========================================================
 debug(`查看 env:${process.env.NODE_ENV}`)
 const config = {
     //是否自动打开浏览器
-    autoOpenBrowser:false,
-    bundleAnalyzerReport:false,
+    autoOpenBrowser: false,
+    //可视化优化观察 只有build 有效
+    bundleAnalyzerReport: false,
 
-  env : process.env.NODE_ENV || 'development',
-  timestamp:new Date().getTime(),
-  // ----------------------------------
-  // 项目结构
-  // ----------------------------------
-  path_base  : path.resolve(__dirname, '..'),
-  dir_src : 'src',
-  dir_dist   : 'dist',
-  dir_public : 'public',
-  dir_server : 'server',
-  dir_test   : 'tests',
+    env: process.env.NODE_ENV || 'development',
+    timestamp: new Date().getTime(),
+    // ----------------------------------
+    // 项目结构
+    // ----------------------------------
+    path_base: path.resolve(__dirname, '..'),
+    dir_src: 'src',
+    dir_dist: 'dist',
+    dir_public: 'public',
+    dir_server: 'server',
+    dir_test: 'tests',
 
-  // ----------------------------------
-  // 服务器配置
-  // ----------------------------------
-  server_host : ip.address(), // 使用字符串“localhost”,以防止暴露在本地网络
-  server_port : process.env.PORT || 8888,
-
+    // ----------------------------------
+    // 服务器配置
+    // ----------------------------------
+    server_host: ip.address(), // 使用字符串“localhost”,以防止暴露在本地网络
+    server_port: process.env.PORT || 8888,
     // ----------------------------------
     // 代理地址
     // ----------------------------------
-    http_agent : 'http://localhost:8082',
-    http_prefix : '/AdminApi',
-    proxyTable:{},
-  // ----------------------------------
-  // 编译结构
-  // ----------------------------------
-  compiler_babel : {
-    cacheDirectory : true,
-    plugins        : ['transform-runtime'],
-    presets        : ['es2015', 'stage-2']
-  },
-  compiler_devtool         : 'source-map',
-  compiler_hash_type       : new Date().Format("yyyy.MM.dd_hh.mm.ss.S"),
-  compiler_fail_on_warning : false,
-  compiler_quiet           : false,
-  compiler_public_path     : '/',
-  compiler_static_path     : 'static',
-  compiler_stats           : {
-    chunks : false,
-    chunkModules : false,
-    colors : true
-  },
-  compiler_vendors : [
-    'vue',
-    'vuex',
-    'vue-router'
-  ]
+    server_proxy: [{
+        // proxyMiddleware(proxy.filter || context, options)  filter 优先级高于 context
+        // filter:function () {},
+        context: '/AdminApi',
+        options: {
+            target: 'http://localhost:8082',
+            changeOrigin: true,
+        }
+    }],
+    // ----------------------------------
+    // 编译结构
+    // ----------------------------------
+    compiler_babel: {
+        cacheDirectory: true,
+        plugins: ['transform-runtime'],
+        presets: ['es2015', 'stage-2']
+    },
+    compiler_devtool: 'source-map',
+    compiler_hash_type: new Date().Format("yyyy.MM.dd_hh.mm.ss.S"),
+    compiler_fail_on_warning: false,
+    compiler_quiet: false,
+    compiler_public_path: '/',
+    compiler_static_path: 'static',
+    compiler_stats: {
+        chunks: false,
+        chunkModules: false,
+        colors: true
+    },
+    compiler_vendors: [
+        'vue',
+        'vuex',
+        'vue-router'
+    ]
 };
+// ------------------------------------
+// webpack2
+// resolve
+// loader
+// ------------------------------------
 
+config.loaders = {
+    styleLoader: 'vue-style-loader'
+}
 // ------------------------------------
 // 环境
 // ------------------------------------
 
 config.globals = {
-  'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
-  },
-  'NODE_ENV'     : config.env,
-  '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),
+    'process.env': {
+        'NODE_ENV': JSON.stringify(config.env)
+    },
+    '__DEV__': config.env === 'development',
+    '__PROD__': config.env === 'production',
+    'NODE_ENV': config.env,
+    '__BASENAME__': JSON.stringify(process.env.BASENAME || ''),
     //当前ip地址端口
-   '__SERVER_HOST__': JSON.stringify(`http://localhost:${config.server_port}`)
+    '__SERVER_HOST__': JSON.stringify(`http://localhost:${config.server_port}`)
 };
 
 
@@ -102,27 +116,27 @@ config.globals = {
 const pkg = require('../package.json')
 
 config.compiler_vendors = config.compiler_vendors
-  .filter((dep) => {
-    if (pkg.dependencies[dep]) return true;
+    .filter((dep) => {
+        if (pkg.dependencies[dep]) return true;
 
-    debug(
-        ` 配置在 compiler_vendors 里的依赖包 "${dep}" 未包含在 package.json dependencies 里  ,`
-    )
-  });
+        debug(
+            ` 配置在 compiler_vendors 里的依赖包 "${dep}" 未包含在 package.json dependencies 里  ,`
+        )
+    });
 
 // ------------------------------------
 // 实用工具
 // ------------------------------------
-function base () {
-  const args = [config.path_base].concat([].slice.call(arguments))
-  return path.resolve.apply(path, args)
+function base() {
+    const args = [config.path_base].concat([].slice.call(arguments))
+    return path.resolve.apply(path, args)
 }
 
 config.paths = {
-  base   : base,
-  src : base.bind(null, config.dir_src),
-  public : base.bind(null, config.dir_public),
-  dist   : base.bind(null, config.dir_dist)
+    base: base,
+    src: base.bind(null, config.dir_src),
+    public: base.bind(null, config.dir_public),
+    dist: base.bind(null, config.dir_dist)
 };
 
 // ========================================================
@@ -132,10 +146,10 @@ debug(`当前 NODE_ENV "${config.env}".`)
 const environments = require('./environments.config')
 const overrides = environments[config.env]
 if (overrides) {
-  debug('发现覆盖,申请默认配置.')
-  Object.assign(config, overrides(config))
+    debug('发现覆盖,申请默认配置.')
+    Object.assign(config, overrides(config))
 } else {
-  debug('没有发现环境覆盖,将使用默认值.')
+    debug('没有发现环境覆盖,将使用默认值.')
 }
 
 module.exports = config

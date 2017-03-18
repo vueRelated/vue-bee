@@ -24,6 +24,7 @@ module.exports = merge(baseWebpackConfig, {
   // cheap-module-eval-source-map is faster for development
   devtool: '#cheap-module-eval-source-map',
   plugins: [
+      new webpack.DefinePlugin(projectConfig.globals),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     // 热模块更换插件
     new webpack.HotModuleReplacementPlugin(),
@@ -32,7 +33,7 @@ module.exports = merge(baseWebpackConfig, {
       //编译输出 HTML
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'index.html',
+        template: projectConfig.paths.src('index.html'),
       inject: true
     }),
     new FriendlyErrorsPlugin()
