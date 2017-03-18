@@ -1,13 +1,13 @@
 //
 module.exports = {
     plugins: [
-        require('autoprefixer')
+        require('autoprefixer')({
+            "browserlist": [
+                "> 5%",
+                "last 10 versions",
+                "Firefox < 20",
+                "ie 6-8"
+            ]
+        })
     ]
 }
-
-/*module.exports = {
-  "plugins": {
-    // to edit target browsers: use "browserlist" field in package.json
-    "autoprefixer": {}
-  }
-}*/
