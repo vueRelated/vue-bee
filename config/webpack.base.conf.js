@@ -16,7 +16,7 @@ module.exports = {
         chunkFilename: utils.assetsPath(`js/[name].${projectConfig.compiler_hash_type}.js`)
     },
     resolve: {
-        extensions: ['.js', '.vue', '.json'],
+        extensions: ['.js', '.vue', '.json','.scss'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': projectConfig.paths.src(),

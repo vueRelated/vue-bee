@@ -9,8 +9,14 @@
         <footer-menu-component ></footer-menu-component>
     </div>
 </template>
-
-<style>
+<style lang="scss">
+    @import './style/common.scss';
+    .router-fade-enter-active, .router-fade-leave-active {
+        transition: opacity .3s;
+    }
+    .router-fade-enter, .router-fade-leave-active {
+        opacity: 0;
+    }
     .container{
         margin-top: 2rem;
         height: 600px;
@@ -20,6 +26,7 @@
         transform: rotate(30deg);
     }
 </style>
+
 <script>
     import {mapGetters, mapActions} from "vuex";
     import HeaderComponent from "./components/header.vue";
