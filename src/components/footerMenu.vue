@@ -1,9 +1,9 @@
 <template>
     <div class="footerMenu">
         <ul>
-            <li>发布广告</li>
             <li>我的</li>
-            <li>广告大厅</li>
+            <li><router-link to="/">大厅</router-link></li>
+            <li><router-link to="/login">登录</router-link></li>
         </ul>
     </div>
 </template>

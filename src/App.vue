@@ -1,30 +1,19 @@
 <template>
     <div id="app">
-
         <header-component :pageTitle="pageTitle"></header-component>
+
         <div class="container">
             <router-view></router-view>
         </div>
-
         <footer-menu-component ></footer-menu-component>
     </div>
 </template>
+<style>
+    @import 'style/normalize.css';
+    @import 'style/reset.css';
+</style>
 <style lang="scss">
-    @import './style/common.scss';
-    .router-fade-enter-active, .router-fade-leave-active {
-        transition: opacity .3s;
-    }
-    .router-fade-enter, .router-fade-leave-active {
-        opacity: 0;
-    }
-    .container{
-        margin-top: 2rem;
-        height: 600px;
-        display: flex;
-        transition: all .1s;
-        box-shadow: 0 0 3px 5px rgba(222, 222, 222, .3);
-        transform: rotate(30deg);
-    }
+    @import 'style/main.scss';
 </style>
 
 <script>
@@ -36,6 +25,11 @@
         name: "app",
         data(){
             return {pageTitle:"首页"}
+        },
+        beforeEnter: (to, from, next) => {
+            console.log(to)
+            console.log(from)
+            console.log(next)
         },
         computed: mapGetters([
             "loading"

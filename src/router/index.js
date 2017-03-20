@@ -3,12 +3,11 @@ import Router from "vue-router";
 import Home from "./home/home";
 import Login from "./login/login";
 
-
 Vue.use(Router);
 
-
-
 export default new Router({
+    mode: 'history',
+
     routes: [
         {
             path: "/",
