@@ -54,8 +54,7 @@ app.use(devMiddleware)
 app.use(hotMiddleware)
 
 // 代理服务器上的静态资源 映射
-var staticPath = path.posix.join(projectConfig.compiler_public_path, projectConfig.compiler_static_path)
-app.use(staticPath, express.static(projectConfig.paths.public()))
+app.use(`/${projectConfig.compiler_static_path}/assets`, express.static(projectConfig.paths.public()))
 
 var uri = 'http://localhost:' + projectConfig.server_port
 
