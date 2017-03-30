@@ -25,6 +25,7 @@
     }
   },
   "dependencies": {
+    "async-validator": "^1.6.8",
     "axios": "^0.15.3",
     "lodash": "^4.17.4",
     "normalize.css": "^5.0.0",

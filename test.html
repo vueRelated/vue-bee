@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function ns(arr) {
+           for(var i=0; i<arr.length; i++){
+
+           }
+
+        }
+
+
+        arr[0]().then(function () {
+            arr[1]().then(function () {
+                arr[2]().then(function () {
+
+                }).catch(function () {
+                    return  Promise.reject()
+                })
+            }).catch(function () {
+                return  Promise.reject()
+            })
+        }).catch(function () {
+            return  Promise.reject()
+        })
+
+        function pms(f,) {
+            return f()
+        }
+
+    </script>
+</body>
+</html>

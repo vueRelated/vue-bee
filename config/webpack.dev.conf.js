@@ -10,10 +10,10 @@ const debug = require('debug')('app:config:webpack.dev.conf');
 
 
 debug("entry 添加热重载");
-Object.keys(baseWebpackConfig.entry).forEach(function (name) {
+/*Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   //根路径 ./build/dev-client
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
-});
+});*/
 debug("base dev 合并");
 
 module.exports = merge(baseWebpackConfig, {
